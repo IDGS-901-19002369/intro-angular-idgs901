@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-2">Filtrar por</div>
             <div class="col-md-4">
-                <input class="form-control" name="filter" type="text">
+                <input [(ngModel)]="listfilter" class="form-control" name="filter" type="text">
             </div>
         </div>
         <div class="row">
@@ -21,14 +21,15 @@
                 <thead class="">
                     <button  (click)="showImage()" class="btn btn-danger" type="button">
                         {{muestraImg?'oculta':'Muestra'}}Imagen</button>
-
+                    
+                    
                     <th>Matricula</th>
                     <th>Nombre</th>
                     <th>Edad</th>
                     <th>Correo</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let alumno of alumnosIric">
+                    <tr *ngFor="let alumno of alumnosIric" |alumnofilter:listfilter>
                         <td><img *ngIf="muestraImg" [src]="alumno.foto" alt="Foto del alumno" 
                             [title]="alumno.nombre"
                             [style.width.px]="imageWidth"
@@ -36,9 +37,11 @@
                           
                             ></td>
                         <td>{{alumno.matricula}}</td>
-                        <td>{{alumno.nombre}}</td>
+                        <td>{{alumno.nombre | uppercase}}</td>
                         <td>{{alumno.edad}}</td>
                         <td>{{alumno.correo}}</td>
+                        <td>{{alumno.calif}}</td>
+                        <td><app-calificacion-alum [califica]="alumno.calif"></app-calificacion-alum></td>
                     </tr>
                 </tbody>
             </table>
